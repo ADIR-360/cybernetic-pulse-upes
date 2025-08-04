@@ -1,9 +1,16 @@
 import { useEffect, useRef } from "react";
-import { ChevronDown } from "lucide-react";
-import cyberHeroBg from "@/assets/cyber-hero-bg.jpg";
+import { Button } from "@/components/ui/button";
 
 const HeroSection = () => {
   const heroRef = useRef<HTMLDivElement>(null);
+
+  const cyberTerms = [
+    "PENETRATION TESTING", "THREAT INTELLIGENCE", "MALWARE ANALYSIS", "DIGITAL FORENSICS",
+    "INCIDENT RESPONSE", "VULNERABILITY ASSESSMENT", "NETWORK SECURITY", "CRYPTOGRAPHY",
+    "ETHICAL HACKING", "ZERO-DAY EXPLOITS", "SOCIAL ENGINEERING", "SECURITY AUDITING",
+    "CYBER THREAT HUNTING", "BLOCKCHAIN SECURITY", "IOT SECURITY", "CLOUD SECURITY",
+    "ARTIFICIAL INTELLIGENCE", "MACHINE LEARNING", "CYBER WARFARE", "DATA PROTECTION"
+  ];
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -34,107 +41,102 @@ const HeroSection = () => {
     <section
       id="home"
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden cyber-grid"
-      style={{
-        backgroundImage: `linear-gradient(rgba(0, 30, 60, 0.8), rgba(0, 20, 40, 0.9)), url(${cyberHeroBg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
-      }}
+      className="relative min-h-screen flex items-center justify-center bg-gradient-background overflow-hidden"
     >
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Floating Particles */}
-        {[...Array(6)].map((_, i) => (
+      {/* Minimal Background Grid */}
+      <div className="absolute inset-0 cyber-grid opacity-[0.02]"></div>
+      
+      {/* Subtle Floating Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(4)].map((_, i) => (
           <div
             key={i}
-            className={`absolute w-2 h-2 bg-primary rounded-full floating-animation opacity-60`}
+            className="absolute w-px h-px bg-foreground/10 rounded-full animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${i * 0.5}s`
+              animationDelay: `${i * 0.8}s`,
+              animationDuration: `${4 + Math.random() * 2}s`
             }}
           />
         ))}
-        
-        {/* Scan Lines */}
-        <div className="absolute inset-0">
-          <div className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent animate-scan-line opacity-50"></div>
-        </div>
-        
-        {/* Matrix Rain Effect */}
-        <div className="absolute inset-0 pointer-events-none">
-          {[...Array(10)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute text-primary font-mono text-xs opacity-30 animate-matrix-rain"
-              style={{
-                left: `${i * 10}%`,
-                animationDelay: `${i * 0.2}s`
-              }}
-            >
-              {'01'.repeat(50)}
-            </div>
-          ))}
-        </div>
       </div>
 
       {/* Main Content */}
       <div className="relative z-10 text-center max-w-6xl mx-auto px-6">
-        <div className="space-y-8 animate-fade-in-up">
-          {/* Badge */}
-          <div className="inline-flex items-center space-x-2 bg-card/30 backdrop-blur-sm border border-primary/30 rounded-full px-6 py-2 text-sm font-medium text-primary">
-            <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-            <span>UPES - University of Petroleum and Energy Studies</span>
+        <div className="space-y-12 animate-fade-in-up">
+          {/* Main Title */}
+          <div className="space-y-6">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-orbitron font-bold tracking-tight">
+              <span className="text-foreground">CyberSec</span>{" "}
+              <span className="text-primary">COE</span>
+            </h1>
+            
+            <h2 className="text-xl md:text-2xl font-light text-foreground-secondary tracking-[0.3em] uppercase">
+              Cyber Security Centre of Excellence
+            </h2>
+            
+            <p className="text-lg text-muted-foreground tracking-wide">
+              University of Petroleum and Energy Studies
+            </p>
           </div>
 
-          {/* Main Title */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-orbitron font-bold leading-tight">
-            <span className="text-gradient text-shadow-glow">CyberSec COE</span>
-            <br />
-            <span className="text-foreground">Cyber Security</span>
-            <br />
-            <span className="text-gradient">Centre of Excellence</span>
-          </h1>
-
-          {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-foreground-secondary max-w-3xl mx-auto leading-relaxed">
-            Empowering the next generation of cybersecurity professionals through cutting-edge education, research, and innovation
-          </p>
-
-          {/* CTA Button */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
-            <button 
-              onClick={scrollToNext}
-              className="cyber-button group"
-            >
-              <span className="relative z-10">Explore Our Work</span>
-            </button>
+          {/* Professional Description */}
+          <div className="max-w-3xl mx-auto space-y-6">
+            <p className="text-lg text-foreground-secondary leading-relaxed">
+              Leading cybersecurity research and education center, pioneering innovative solutions 
+              for digital security challenges in the energy and petroleum industry.
+            </p>
             
-            <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-              <span>Educational Hub</span>
-              <div className="w-1 h-1 bg-primary rounded-full"></div>
-              <span>Research Center</span>
-              <div className="w-1 h-1 bg-primary rounded-full"></div>
-              <span>Innovation Lab</span>
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8 text-sm text-muted-foreground">
+              <span>Research Excellence</span>
+              <div className="hidden sm:block w-px h-4 bg-border"></div>
+              <span>Educational Innovation</span>
+              <div className="hidden sm:block w-px h-4 bg-border"></div>
+              <span>Industry Collaboration</span>
             </div>
           </div>
-        </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <button 
-            onClick={scrollToNext}
-            className="flex flex-col items-center space-y-2 text-primary hover:text-primary-glow transition-colors duration-300"
-          >
-            <span className="text-xs font-medium uppercase tracking-wider">Scroll Down</span>
-            <ChevronDown size={20} className="animate-pulse" />
-          </button>
+          {/* CTA Button */}
+          <div className="pt-8">
+            <Button
+              onClick={scrollToNext}
+              variant="outline"
+              size="lg"
+              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 px-8 py-3 text-base font-medium tracking-wide"
+            >
+              Explore Our Work
+            </Button>
+          </div>
         </div>
       </div>
 
-      {/* Glow Effect */}
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none"></div>
+      {/* Horizontal Scrolling Cybersecurity Terms */}
+      <div className="absolute bottom-24 left-0 right-0 overflow-hidden">
+        <div className="relative h-12 flex items-center border-t border-b border-border/20">
+          <div 
+            className="flex items-center space-x-16 whitespace-nowrap"
+            style={{ 
+              animation: "scroll-horizontal 80s linear infinite",
+              transform: "translateX(100%)"
+            }}
+          >
+            {cyberTerms.concat(cyberTerms).map((term, index) => (
+              <span
+                key={index}
+                className="text-xs font-orbitron tracking-[0.4em] text-foreground/20 uppercase font-medium"
+              >
+                {term}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Minimal Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+        <div className="w-px h-8 bg-gradient-to-b from-transparent via-foreground/30 to-transparent animate-pulse"></div>
+      </div>
     </section>
   );
 };
