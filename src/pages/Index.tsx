@@ -9,63 +9,45 @@ import Footer from "@/components/Footer";
 
 const Index = () => {
   useEffect(() => {
-    // Add smooth scrolling behavior
-    document.documentElement.style.scrollBehavior = 'smooth';
+    // Custom cursor tracking
+    const cursor = document.createElement('div');
+    cursor.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: difference;
+      transition: transform 0.1s ease-out;
+    `;
+    document.body.appendChild(cursor);
 
-    // Parallax effect for background elements
-    const handleScroll = () => {
-      const scrolled = window.pageYOffset;
-      const parallaxElements = document.querySelectorAll('.parallax-element');
-      
-      parallaxElements.forEach((element) => {
-        const speed = 0.5;
-        const yPos = -(scrolled * speed);
-        (element as HTMLElement).style.transform = `translateY(${yPos}px)`;
-      });
-    };
-
-    // Mouse move effect for interactive elements
     const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      const { innerWidth, innerHeight } = window;
-      
-      const xPos = (clientX / innerWidth - 0.5) * 2;
-      const yPos = (clientY / innerHeight - 0.5) * 2;
-      
-      const floatingElements = document.querySelectorAll('.floating-animation');
-      floatingElements.forEach((element, index) => {
-        const speed = 0.02 + (index * 0.01);
-        const x = xPos * speed * 10;
-        const y = yPos * speed * 10;
-        (element as HTMLElement).style.transform = `translate(${x}px, ${y}px)`;
-      });
+      cursor.style.left = e.clientX - 10 + 'px';
+      cursor.style.top = e.clientY - 10 + 'px';
     };
 
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('mousemove', handleMouseMove);
-
-    // Intersection Observer for scroll animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+    const handleMouseDown = () => {
+      cursor.style.transform = 'scale(0.8)';
     };
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in-up');
-        }
-      });
-    }, observerOptions);
+    const handleMouseUp = () => {
+      cursor.style.transform = 'scale(1)';
+    };
 
-    // Observe all animation elements
-    const animatedElements = document.querySelectorAll('.animate-on-scroll');
-    animatedElements.forEach((el) => observer.observe(el));
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mousedown', handleMouseDown);
+    document.addEventListener('mouseup', handleMouseUp);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('mousemove', handleMouseMove);
-      observer.disconnect();
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mousedown', handleMouseDown);
+      document.removeEventListener('mouseup', handleMouseUp);
+      document.body.removeChild(cursor);
     };
   }, []);
 
@@ -76,29 +58,6 @@ const Index = () => {
       
       {/* Main Content */}
       <main className="relative">
-        {/* Background Elements */}
-        <div className="fixed inset-0 pointer-events-none overflow-hidden">
-          {/* Animated Grid Lines */}
-          <div className="absolute inset-0 cyber-grid opacity-[0.03]"></div>
-          
-          {/* Floating Particles */}
-          {[...Array(8)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-1 h-1 bg-primary/30 rounded-full parallax-element"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${i * 0.8}s`
-              }}
-            />
-          ))}
-          
-          {/* Gradient Overlays */}
-          <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-primary/5 via-transparent to-transparent"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-secondary/5 via-transparent to-transparent"></div>
-        </div>
-
         {/* Page Sections */}
         <HeroSection />
         <AboutSection />

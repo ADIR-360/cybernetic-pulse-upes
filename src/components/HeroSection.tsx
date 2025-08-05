@@ -24,7 +24,7 @@ const HeroSection = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col justify-center bg-black text-white overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center bg-black text-white overflow-hidden pb-24"
     >
       {/* Main Content */}
       <div className="relative z-10 text-center max-w-7xl mx-auto px-6 flex-1 flex flex-col justify-center">
@@ -48,7 +48,7 @@ const HeroSection = () => {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 pt-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 pt-8 pb-16">
             <Button
               onClick={scrollToNext}
               variant="outline"
@@ -78,18 +78,15 @@ const HeroSection = () => {
       </div>
 
       {/* Bottom Animated Section */}
-      <div className="absolute bottom-0 left-0 right-0 border-t border-gray-800">
+      <div className="absolute bottom-0 left-0 right-0 bg-black">
         <div className="relative h-20 flex items-center overflow-hidden">
           <div 
             className="flex items-center space-x-16 whitespace-nowrap animate-scroll-left"
-            style={{ 
-              animation: "scroll-left 40s linear infinite"
-            }}
           >
-            {researchAreas.concat(researchAreas, researchAreas).map((term, index) => (
+            {researchAreas.concat(researchAreas, researchAreas, researchAreas).map((term, index) => (
               <span
                 key={index}
-                className="text-lg font-bold tracking-[0.3em] text-gray-400 uppercase"
+                className="text-lg font-bold tracking-[0.3em] text-white uppercase"
               >
                 {term}
               </span>

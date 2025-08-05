@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import upesLogo from "@/assets/upes-logo.jpg";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,44 +15,20 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navSections = {
-    Research: [
-      { name: "Active Projects", href: "#projects" },
-      { name: "Publications", href: "#publications" },
-      { name: "Research Areas", href: "#research" },
-      { name: "Collaborations", href: "#collaborations" },
-    ],
-    Education: [
-      { name: "Programs", href: "#programs" },
-      { name: "Mentors", href: "#mentors" },
-      { name: "Student Resources", href: "#resources" },
-      { name: "Workshops", href: "#events" },
-    ],
-    About: [
-      { name: "Mission", href: "#about" },
-      { name: "Vision", href: "#vision" },
-      { name: "History", href: "#history" },
-      { name: "Leadership", href: "#leadership" },
-    ],
-    University: [
-      { name: "UPES Main Site", href: "https://upes.ac.in", external: true },
-      { name: "Campus Life", href: "https://upes.ac.in/campus-life", external: true },
-      { name: "Alumni Network", href: "https://upes.ac.in/alumni", external: true },
-      { name: "Events", href: "#events" },
-    ],
-  };
+  const navItems = [
+    { name: "HOME", href: "#home" },
+    { name: "ABOUT", href: "#about" },
+    { name: "PROJECTS", href: "#projects" },
+    { name: "EVENTS", href: "#events" },
+    { name: "MENTORS", href: "#mentors" },
+  ];
 
   const scrollToSection = (href: string) => {
-    if (href.startsWith("http")) {
-      window.open(href, "_blank");
-    } else {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
     }
     setIsMobileMenuOpen(false);
-    setActiveDropdown(null);
   };
 
   return (
@@ -76,37 +51,19 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
-            {Object.entries(navSections).map(([section, items]) => (
-              <div 
-                key={section}
-                className="relative group"
-                onMouseEnter={() => setActiveDropdown(section)}
-                onMouseLeave={() => setActiveDropdown(null)}
+          <div className="hidden lg:flex items-center space-x-12">
+            {navItems.map((item) => (
+              <button
+                key={item.name}
+                onClick={() => scrollToSection(item.href)}
+                className="text-white hover:text-gray-300 transition-colors duration-300 font-medium text-sm tracking-wide"
               >
-                <button className="flex items-center space-x-1 text-white hover:text-gray-300 transition-colors duration-300 font-medium">
-                  <span>{section}</span>
-                  <ChevronDown size={16} className="transition-transform duration-300 group-hover:rotate-180" />
-                </button>
-                
-                {activeDropdown === section && (
-                  <div className="absolute top-full left-0 mt-2 w-48 bg-black border border-gray-700 rounded-md shadow-lg py-2">
-                    {items.map((item) => (
-                      <button
-                        key={item.name}
-                        onClick={() => scrollToSection(item.href)}
-                        className="block w-full text-left px-4 py-2 text-white hover:bg-gray-800 hover:text-gray-200 transition-colors duration-200"
-                      >
-                        {item.name}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
+                {item.name}
+              </button>
             ))}
           </div>
 
-          {/* Mobile Menu Toggle */}
+          {/* Mobile Menu Toggle & Login */}
           <div className="lg:hidden flex items-center space-x-4">
             <button className="border border-white text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-white hover:text-black transition-all duration-300">
               LOGIN
@@ -129,21 +86,16 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-md border-t border-gray-800">
+          <div className="lg:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-md">
             <div className="px-6 py-4 space-y-4">
-              {Object.entries(navSections).map(([section, items]) => (
-                <div key={section} className="space-y-2">
-                  <h3 className="font-medium text-white border-b border-gray-700 pb-1">{section}</h3>
-                  {items.map((item) => (
-                    <button
-                      key={item.name}
-                      onClick={() => scrollToSection(item.href)}
-                      className="block w-full text-left text-gray-300 hover:text-white transition-colors duration-300 pl-4 py-1"
-                    >
-                      {item.name}
-                    </button>
-                  ))}
-                </div>
+              {navItems.map((item) => (
+                <button
+                  key={item.name}
+                  onClick={() => scrollToSection(item.href)}
+                  className="block w-full text-left text-white hover:text-gray-300 transition-colors duration-300 py-2"
+                >
+                  {item.name}
+                </button>
               ))}
             </div>
           </div>
