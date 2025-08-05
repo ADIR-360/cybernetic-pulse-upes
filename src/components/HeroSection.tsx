@@ -24,7 +24,7 @@ const HeroSection = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col justify-center bg-black text-white overflow-hidden pb-24"
+      className="relative min-h-screen flex flex-col justify-center bg-black text-white overflow-hidden pb-24 pt-20"
     >
       {/* Main Content */}
       <div className="relative z-10 text-center max-w-7xl mx-auto px-6 flex-1 flex flex-col justify-center">

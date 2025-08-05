@@ -34,11 +34,11 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-black/90 backdrop-blur-md border-b border-gray-800" : "bg-transparent"
+        isScrolled ? "bg-black/90 backdrop-blur-md border-b border-gray-800" : "bg-black/50 backdrop-blur-sm"
       }`}
     >
       <div className="container mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center space-x-3">
             <img src={upesLogo} alt="UPES Logo" className="h-10 w-auto brightness-0 invert" />

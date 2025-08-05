@@ -9,50 +9,23 @@ import Footer from "@/components/Footer";
 
 const Index = () => {
   useEffect(() => {
-    // Custom cursor tracking
-    const cursor = document.createElement('div');
-    cursor.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 20px;
-      height: 20px;
-      background: white;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      mix-blend-mode: difference;
-      transition: transform 0.1s ease-out;
-    `;
-    document.body.appendChild(cursor);
+    // Smooth scrolling
+    document.documentElement.style.scrollBehavior = 'smooth';
 
+    // Custom cursor tracking without visible dot
     const handleMouseMove = (e: MouseEvent) => {
-      cursor.style.left = e.clientX - 10 + 'px';
-      cursor.style.top = e.clientY - 10 + 'px';
-    };
-
-    const handleMouseDown = () => {
-      cursor.style.transform = 'scale(0.8)';
-    };
-
-    const handleMouseUp = () => {
-      cursor.style.transform = 'scale(1)';
+      // Just track mouse for any future interactions, no visible cursor
     };
 
     document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mousedown', handleMouseDown);
-    document.addEventListener('mouseup', handleMouseUp);
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mousedown', handleMouseDown);
-      document.removeEventListener('mouseup', handleMouseUp);
-      document.body.removeChild(cursor);
     };
   }, []);
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-black" style={{ scrollBehavior: 'smooth' }}>
       {/* Navigation */}
       <Navbar />
       
